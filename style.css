@@ -11,6 +11,13 @@ div[id='root']{
     width: 100%;
     height: 100%;
 }
+.counter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: transparent;
+}
 .count{
     text-align: center;
     padding: 20px 0;
@@ -29,5 +36,14 @@ button.increment{
 }
 button.decrement{
     color: darkred;
-
+}
+.counter input{
+    width: auto;
+    text-align: center;
+    background: transparent;
+    font-size: large;
+    font-weight: 600;
+    border: none;
+    color: #f07070;
+    margin: 20px 0;
 }

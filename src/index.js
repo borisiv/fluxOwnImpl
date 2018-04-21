@@ -5,7 +5,7 @@ import {createStore} from "./redux";
 
 const initialState = {count: 0};
 
-function reducer(state = initialState, action){
+function reducer(state, action){
     const amount = 1;
     switch (action.type){
         case "INCREMENT":
@@ -19,13 +19,22 @@ function reducer(state = initialState, action){
     }
 }
 
-const incrementAction = { type: "INCREMENT", amount: 1 };
-const decrementAction = { type: "DECREMENT", amount: 1 };
-const resetAction = { type: "RESET" };
-
 //const store = new Store(updateState, initialState);
-const store = createStore(reducer);
+const store = createStore(reducer, initialState);
 
+
+// Actors (action creators)
+function increment(amount = 1){
+    return { type: "INCREMENT", amount };
+}
+function decrement(amount = 1){
+    return { type: "DECREMENT", amount };
+}
+function reset(){
+    return { type: "RESET" };
+}
+
+// Component
 class Counter extends React.Component{
     constructor(props){
         super(props);
@@ -38,16 +47,19 @@ class Counter extends React.Component{
         store.subscribe( () => this.forceUpdate() );
     }
     increment(){
-        store.dispatch(incrementAction);
+        let amount = parseInt(this.refs.amount.value || 1);
+        store.dispatch(increment(amount));
     }
     decrement(){
-        store.dispatch(decrementAction);
+        let amount = parseInt(this.refs.amount.value || 1);
+        store.dispatch(decrement(amount));
     }
     reset(){
-        store.dispatch(resetAction);
+        store.dispatch(reset());
     }
     render(){
-        const count = store.getState.count;
+        const count = store.getState().count;
+        console.log(count);
         return (
             <div className="counter">
                 <div className="count">{count}</div>
@@ -56,6 +68,7 @@ class Counter extends React.Component{
                     <button className="reset" onClick={this.reset}>0</button>
                     <button className="increment" onClick={this.increment}>+</button>
                 </div>
+                <input type="text" ref="amount" defaultValue="1"/>
             </div>
         );
     }
