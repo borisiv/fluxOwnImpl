@@ -1,0 +1,9 @@
+# Idea Files #
+.idea/
+.idea/*
+*.ipr
+*.iml
+*.iws
+*.ids
+workspace.xml
+tasks.xml
