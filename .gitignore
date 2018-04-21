@@ -7,3 +7,17 @@
 *.ids
 workspace.xml
 tasks.xml
+
+# Modules
+node_modules/
+node_modules/*
+
+# Compiled Files #
+*.class
+*/build/*
+build/*
+*/out/*
+out/*
+dist/
+dist/*
+*/target/*

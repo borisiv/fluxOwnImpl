@@ -1,0 +1,33 @@
+body{
+    background: #0a2a2a;
+    color: #a0afa0;
+}
+div[id='root']{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+}
+.count{
+    text-align: center;
+    padding: 20px 0;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+    font-size: xx-large;
+    font-weight: 800;
+}
+button{
+    background: #a0afa0;
+    border: 2px solid #0a2a2a;
+    font-size: large;
+    font-weight: 600;
+}
+button.increment{
+    color: darkgreen;
+}
+button.decrement{
+    color: darkred;
+
+}

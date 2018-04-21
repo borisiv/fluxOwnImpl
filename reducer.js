@@ -5,9 +5,9 @@ function updateState(state, action = {} ){
     const amount = 1;
     switch (action.type){
         case "INCREMENT":
-            return state + (action.amount || amount);
+            return Object.assign({}, state, { count: state.count + (action.amount || amount)});
         case "DECREMENT":
-            return state - (action.amount || amount);
+            return Object.assign({}, state, { count: state.count - (action.amount || amount)});
         default:
             return state;
     }
@@ -31,7 +31,7 @@ class Store {
         return () =>  this._callbacks = this._callbacks.filter(cb => cb !== callback);
     }
 }
-const store = new Store(updateState, 0);
+const store = new Store(updateState, {count: 0, name: 'barrels'});
 
 const incrementAction = { type: "INCREMENT", amount: 5 };
 const decrementAction = { type: "DECREMENT", amount: 3 };
