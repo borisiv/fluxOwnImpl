@@ -17,12 +17,18 @@ class Store {
     constructor(updateState, state){
         this._updateState = updateState;
         this._state = state;
+        this._callbacks = [];
     }
     get state() {
         return this._state;
     }
     update(action){
         this._state = this._updateState(this._state, action);
+        this._callbacks.forEach(cb => cb());
+    }
+    subscribe(callback){
+        this._callbacks.push(callback);
+        return () =>  this._callbacks = this._callbacks.filter(cb => cb !== callback);
     }
 }
 const store = new Store(updateState, 0);
@@ -30,11 +36,9 @@ const store = new Store(updateState, 0);
 const incrementAction = { type: "INCREMENT", amount: 5 };
 const decrementAction = { type: "DECREMENT", amount: 3 };
 
+let unsubscribe = store.subscribe(() => console.log('State changed 1: ', store.state));
+store.subscribe(() => console.log('State changed 2: ', store.state));
 store.update(incrementAction);
-console.log(store.state);
-
 store.update(decrementAction);
-console.log(store.state);
-
+unsubscribe();
 store.update({});
-console.log(store.state);
