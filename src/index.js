@@ -1,29 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Store from "./store";
-
-//class Store {
-//    constructor(updateState, state){
-//        this._updateState = updateState;
-//        this._state = state;
-//        this._callbacks = [];
-//    }
-//    get state() {
-//        return this._state;
-//    }
-//    update(action){
-//        this._state = this._updateState(this._state, action);
-//        this._callbacks.forEach(cb => cb());
-//    }
-//    subscribe(callback){
-//        this._callbacks.push(callback);
-//        return () =>  this._callbacks = this._callbacks.filter(cb => cb !== callback);
-//    }
-//}
+//import Store from "./store";
+import {createStore} from "./redux";
 
 const initialState = {count: 0};
 
-function updateState(state, action){
+function reducer(state = initialState, action){
     const amount = 1;
     switch (action.type){
         case "INCREMENT":
@@ -41,7 +23,8 @@ const incrementAction = { type: "INCREMENT", amount: 1 };
 const decrementAction = { type: "DECREMENT", amount: 1 };
 const resetAction = { type: "RESET" };
 
-const store = new Store(updateState, initialState);
+//const store = new Store(updateState, initialState);
+const store = createStore(reducer);
 
 class Counter extends React.Component{
     constructor(props){
@@ -55,16 +38,16 @@ class Counter extends React.Component{
         store.subscribe( () => this.forceUpdate() );
     }
     increment(){
-        store.update(incrementAction);
+        store.dispatch(incrementAction);
     }
     decrement(){
-        store.update(decrementAction);
+        store.dispatch(decrementAction);
     }
     reset(){
-        store.update(resetAction);
+        store.dispatch(resetAction);
     }
     render(){
-        const count = store.state.count;
+        const count = store.getState.count;
         return (
             <div className="counter">
                 <div className="count">{count}</div>
